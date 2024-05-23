@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Train Reservation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styl.css">
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center mb-5" style="font-size: 3rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Train Reservation</h1>
+      <form id="reservation-form" class="form-inline d-flex flex-column">
+        <label for="name" class="sr-only">Name:</label>
+        <input type="text" id="name" name="name" class="form-control mb-2" placeholder="Name">
+        <label for="ticket-number" class="sr-only">Ticket Number:</label>
+        <input type="text" id="ticket-number" name="ticket-number" class="form-control mb-2" placeholder="Ticket Number">
+        <label for="payment-details" class="sr-only">UPI ID:</label>
+        <input type="text" id="payment-details" name="payment-details" class="form-control mb-2" placeholder="UPI ID">
+        <button type="submit" class="btn btn-primary mb-2">Reserve</button>
+      </form>
+    </div>
+    <script src="scri.js"></script>
+  </body>
+</html>
