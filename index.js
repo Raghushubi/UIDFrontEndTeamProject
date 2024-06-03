@@ -37,10 +37,24 @@ const stationsData = {
 };
 document.getElementById('searchForm').addEventListener('submit', function(event) {
     event.preventDefault();
+
     const fromStation = document.getElementById('fromStation').value;
     const toStation = document.getElementById('toStation').value;
     const date = document.getElementById('date').value;
+    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
+    // Validate the form inputs
+    if (!fromStation || !toStation || !date) {
+        alert('Please select both the departure and destination stations and a date.');
+        return;
+    }
+
+    if (date < today) {
+        alert('The travel date cannot be in the past.');
+        return;
+    }
+
+    // If validation passes, redirect to the trains.html page
     window.location.href = `trains.html?from=${fromStation}&to=${toStation}&date=${date}`;
 });
 
@@ -58,10 +72,10 @@ document.getElementById('toStation').addEventListener('input', function(event) {
     populateOptions(input, 'toStations', excludeStation);
 });
 
-// Function to populate options, excluding the station passed in excludeStation parameter
+
 function populateOptions(input, dataListId, excludeStation) {
     const dataList = document.getElementById(dataListId);
-    dataList.innerHTML = ''; // Clear existing options
+    dataList.innerHTML = ''; 
     stationsData.features.forEach(station => {
         const stationName = station.properties.name.toLowerCase();
         const stationCode = station.properties.code;

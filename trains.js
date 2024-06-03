@@ -63,7 +63,6 @@ const schedulesData = [
 
 const trainTable = document.getElementById('trainTable');
 
-
 function getRandomAvailability() {
     const randomNumber = Math.floor(Math.random() * 100) + 1; 
     if (randomNumber <= 50) {
@@ -74,21 +73,55 @@ function getRandomAvailability() {
         return `<span style="color: red;">WL ${randomNumber}</span>`;
     }
 }
-function handleBookNowClick() {
-    window.location.href = 'webpage3.html';
+
+function handleBookNowClick(trainDetails) {
+  document.getElementById("trainName").innerText = trainDetails.train_name;
+  document.getElementById("departureTime").innerText = trainDetails.departure;
+  document.getElementById("arrivalTime").innerText = trainDetails.arrival;
+  $('#bookingModal').modal('show');
 }
 
+document.getElementById('confirmBooking').addEventListener('click', () => {
+  const passengerName = document.getElementById('passengerName').value;
+  const passengerAge = document.getElementById('passengerAge').value;
+  const passengerGender = document.getElementById('passengerGender').value;
+  const berthPreference = document.getElementById('berthPreference').value;
+
+  if (!passengerName || !passengerAge || !passengerGender || !berthPreference) {
+      alert('Please fill out all fields.');
+      return;
+  }
+
+  if (passengerAge <= 0 || passengerAge > 120) {
+      alert('Please enter a valid age.');
+      return;
+  }
+
+  const bookingDetails = {
+      trainName: document.getElementById('trainName').innerText,
+      departureTime: document.getElementById('departureTime').innerText,
+      arrivalTime: document.getElementById('arrivalTime').innerText,
+      passengerName,
+      passengerAge,
+      passengerGender,
+      berthPreference,
+  };
+
+  const queryString = new URLSearchParams(bookingDetails).toString();
+  window.location.href = `webpage4.html?${queryString}`;
+});
+
 schedulesData.forEach(schedule => {
-    if (schedule.station_code === fromStation && schedule.day === 1) {
-        const row = trainTable.insertRow();
-        row.innerHTML = `
-            <td>${schedule.train_name}</td>
-            <td>${schedule.departure}</td>
-            <td>${schedule.arrival}</td>
-            <td>${getRandomAvailability()}</td>
-            <td><button class="btn btn-primary book-now">Book Now</button></td>
-        `;
-        const bookNowButton = row.querySelector('.book-now');
-        bookNowButton.addEventListener('click', handleBookNowClick);
-    }
+  if (schedule.station_code === fromStation && schedule.day === 1) {
+      const row = trainTable.insertRow();
+      row.innerHTML = `
+          <td>${schedule.train_name}</td>
+          <td>${schedule.departure}</td>
+          <td>${schedule.arrival}</td>
+          <td>${getRandomAvailability()}</td>
+          <td><button class="btn btn-primary book-now">Book Now</button></td>
+      `;
+      const bookNowButton = row.querySelector('.book-now');
+      bookNowButton.addEventListener('click', () => handleBookNowClick(schedule));
+  }
 });
