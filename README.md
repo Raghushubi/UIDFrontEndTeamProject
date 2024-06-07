@@ -3,7 +3,7 @@
 
 ## Team Members: 
 ### Nandana Renjith: AM.SC.U4CSE23056
-## D. Manogna: AM.SC.U4CSE23022
+### D. Manogna: AM.SC.U4CSE23022
 ### Greeshmitha Sai: AM.SC.U4CSE23037
 ### R. Shubhangi: AM.SC.U4CSE23068
 
